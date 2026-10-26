@@ -33,7 +33,7 @@ jobs:
             exit 1
           fi
           code=$(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $TOKEN" \
-            https://api.cloudflare.com/client/v4/accounts/737d99246bdf06d5ab2d6e8e1cea80f9/pages/projects/syntropy-sciences)
+            https://api.cloudflare.com/client/v4/accounts/0d751e20daf82ae0107969999724a018/pages/projects/syntropy-sciences)
           case "$code" in
             200) echo "Token can reach the syntropy-sciences Pages project." ;;
             400|401) echo "::error::Cloudflare rejected the token (HTTP $code): it is invalid, expired or was pasted incompletely."; exit 1 ;;
@@ -58,5 +58,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           # Not a secret: account IDs appear in every dashboard URL.
-          accountId: 737d99246bdf06d5ab2d6e8e1cea80f9
+          accountId: 0d751e20daf82ae0107969999724a018
           command: pages deploy dist --project-name=syntropy-sciences --branch=main
