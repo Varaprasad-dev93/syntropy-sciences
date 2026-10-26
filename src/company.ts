@@ -7,7 +7,7 @@ export const COMPANY = {
   name: 'Syntropy Sciences',
   legalName: 'Syntropy Sciences Private Limited',
   url: 'https://syntropysciences.in',
-  email: 'founders@syntropysciences.in',
+  email: 'founder@syntropysciences.in',
   cin: 'U86201AP2026PTC128651',
   incorporatedYear: 2026,
   registeredOffice: {
