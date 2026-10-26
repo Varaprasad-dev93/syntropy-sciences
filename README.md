@@ -36,5 +36,7 @@ Any wording that describes clinical services needs founder / compliance sign-off
 
 ## Hosting
 
-Cloudflare Pages, custom domain `syntropysciences.in`. Keep **Bot Fight Mode** and "Under Attack"
+Cloudflare Pages, custom domain `syntropysciences.in`. Every push to `main` builds and deploys via
+`.github/workflows/deploy.yml` (needs the `CLOUDFLARE_API_TOKEN` repository secret). `npm run deploy`
+still works for a manual deploy. Keep **Bot Fight Mode** and "Under Attack"
 mode off for this zone, and keep any WAF challenge off the site, so automated verification checks are not blocked.

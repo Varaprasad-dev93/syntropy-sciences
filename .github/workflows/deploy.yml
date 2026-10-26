@@ -1,0 +1,43 @@
+# Builds the site and deploys it to the existing Cloudflare Pages project
+# (syntropy-sciences) on every push to main. The project was created by direct
+# upload, which Cloudflare cannot convert to its own Git integration, so the
+# deploy runs from here instead.
+#
+# Needs one repository secret: CLOUDFLARE_API_TOKEN, with the
+# "Account > Cloudflare Pages > Edit" permission.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # Not a secret: account IDs appear in every dashboard URL.
+          accountId: 737d99246bdf06d5ab2d6e8e1cea80f9
+          command: pages deploy dist --project-name=syntropy-sciences --branch=main
